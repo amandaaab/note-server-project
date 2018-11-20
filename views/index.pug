@@ -1,12 +1,30 @@
 extends layout.pug
 block content
-  h1 Välkommen
-  ul 
-    each item, index in list
-        div(class="notewrap")
-            div(class="note")
-                h2= `${item.todo}`
-                span= `${item.week}`
-            p= `${item.note}`
-            span= `Datum: ${item.date}`
+  h1 Dina anteckningar
+  ul(class="notes")
+    if prompt
+        h2 #{prompt}#{notMatch} hittades inte
+    if searched
+        each item in searched
+            h2 du har sökt på #{item.todo}
+            div(class="notewrap")
+                div(class="notehead")
+                    h3= ` ${item.todo}`
+                    h3= `v. ${item.week} `
+                div(class="notebody")
+                    p= `${item.note}`
+                div(class="notefoot")
+                    span= `Datum: ` 
+                    span= `${item.date}`
+    else    
+        each item, index in list
+            div(class="notewrap")
+                div(class="notehead")
+                    h3= ` ${item.todo}`
+                    h3= `v. ${item.week} `
+                div(class="notebody")
+                    p= `${item.note}`
+                div(class="notefoot")
+                    span= `Datum: ` 
+                    span= `${item.date}`
 
