@@ -1,0 +1,12 @@
+extends layout.pug
+block content
+  h1 Välkommen
+  ul 
+    each item, index in list
+        div(class="notewrap")
+            div(class="note")
+                h2= `${item.todo}`
+                span= `${item.week}`
+            p= `${item.note}`
+            span= `Datum: ${item.date}`
+
