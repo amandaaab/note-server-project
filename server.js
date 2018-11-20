@@ -25,16 +25,16 @@ app.get('/', (req, res) => res.render('index', {list: todolist}));
 // SÖK 
 app.get('/:search', (req, res) => {
     let search = req.params.search
-    let searchedObj=[];
-   
-   todolist.filter(item => {
+    let searchedObj= [];
+
+    todolist.filter(item => {
         if(item.todo === search){
-            newArray.push(item)
+            searchedObj.push(item)
             res.render('index', { searched: searchedObj})
         }
-   })
+    })
 
-    res.render('index', { prompt:'din sökning på ', notMatch: search, list: todolist})
+    res.render('index', { prompt:`din sökning på ${search} hittades inte`, notMatch: search, list: todolist})
 
 })
 

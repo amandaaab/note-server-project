@@ -2,8 +2,8 @@ extends layout.pug
 block content
   h1 Dina anteckningar
   ul(class="notes")
-    if prompt
-        h2 #{prompt}#{notMatch} hittades inte
+    if notMatch
+        h2 #{prompt}
     if searched
         each item in searched
             h2 du har sökt på #{item.todo}
