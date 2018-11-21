@@ -73,6 +73,35 @@ app.get('/add/notes/:todo/:date/:week/:note?', (req, res) => {
 })
 
 
+app.get('/add/notes', (req, res) => {  
+    res.render('add')
+})
+
+// ADD NEW NOTES FROM FORM 
+app.post('/add/notes', (req, res) => {
+    let todo = req.body.newtodo
+    let date = req.body.newdate
+    let week = req.body.newweek
+    let note = req.body.newnote
+
+    if(note) {
+        todolist.push({todo, date, week, note})
+        let newJsonNotes = JSON.stringify(todolist, null, 2)
+
+        fs.writeFile('./public/json/todo.json', newJsonNotes, (err) => {
+            if(err) throw err;
+            res.render('add')
+        }) 
+        res.redirect('/')
+        
+    } else {  
+        res.render('add', {message: 'vänligen fyll i alla fällt'})
+    }
+})
+
+
+
+
 
 
 
