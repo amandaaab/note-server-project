@@ -1,6 +1,7 @@
 extends layout.pug
 block content
   h1 Dina anteckningar
+  include search.pug
   ul(class="notes")
     if notMatch
         h2 #{prompt}
