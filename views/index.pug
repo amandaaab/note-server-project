@@ -2,6 +2,7 @@ extends layout.pug
 block content
   h1 Dina anteckningar
   include search.pug
+  a(href='/add/note') klicka
   ul(class="notes")
     if notMatch
         h2 #{prompt}

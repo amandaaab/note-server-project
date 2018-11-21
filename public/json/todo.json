@@ -1,18 +1,32 @@
 [
-    {
-        "todo": "städa", 
-        "date": "12/12/18",
-        "week": 48,
-        "note": "Städa vardagsrummet och köket, glöm ej soporna."
-    },{
-        "todo": "inlämningsuppgift 1", 
-        "date": "26/11/18",
-        "week": 48,
-        "note": "Gör ett API där du kan skriva anteckningar av vad du måste få gjort."
-    },{
-        "todo": "tenta", 
-        "date": "12/12/18",
-        "week": 50,
-        "note": "Oklart."
-    }
+  {
+    "todo": "städa",
+    "date": "12/12/18",
+    "week": 48,
+    "note": "Städa vardagsrummet och köket, glöm ej soporna."
+  },
+  {
+    "todo": "inlämningsuppgift 1",
+    "date": "26/11/18",
+    "week": 48,
+    "note": "Gör ett API där du kan skriva anteckningar av vad du måste få gjort."
+  },
+  {
+    "todo": "tenta",
+    "date": "12/12/18",
+    "week": 50,
+    "note": "Oklart."
+  },
+  {
+    "todo": "diska",
+    "date": "nu",
+    "week": "nästa",
+    "note": "gördet"
+  },
+  {
+    "todo": "diska",
+    "date": "nu",
+    "week": "nästa",
+    "note": "görd"
+  }
 ]

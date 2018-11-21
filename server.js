@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const bodyParser = require('body-parser')
+const fs = require('fs')
 const pug = require('pug')
 
 // Sätter om inställningarna av view engine, till att använda pug.
@@ -22,7 +23,7 @@ const todolist = require('./public/json/todo.json')
 app.get('/', (req, res) => res.render('index', {list: todolist}));
 
 
-// SÖK I URL
+// SEARCH IN URL
 app.get('/:search', (req, res) => {
     let search = req.params.search
     let searchedObj = [];
@@ -37,7 +38,7 @@ app.get('/:search', (req, res) => {
 
 })
 
-// SÖK I FORMULÄR
+// SEARCH IN FORM
 app.post('/', (req, res) => {
     let search = req.body.todoItem;
     let searchedObj = [];
@@ -51,6 +52,30 @@ app.post('/', (req, res) => {
 
     res.render('index', { prompt:`din sökning på ${search} hittades inte`, notMatch: search, list: todolist})
    })
+
+
+// ADD NEW NOTES URL
+app.get('/add/notes/:todo/:date/:week/:note?', (req, res) => {
+    let todo = req.params.todo
+    let date = req.params.date
+    let week = req.params.week
+    let note = req.params.note
+
+    if(note) {
+        todolist.push({todo, date, week, note})
+        let newJsonNotes = JSON.stringify(todolist, null, 2)
+
+        fs.writeFile('./public/json/todo.json', newJsonNotes, (err) => {
+            if(err) throw err;
+            res.render('add')
+        }) 
+    }
+})
+
+
+
+
+
 
 
 
