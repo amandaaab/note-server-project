@@ -86,11 +86,11 @@ app.post('/add/notes', (req, res) => {
 
     if(note) {
         todolist.push({todo, date, week, note})
-        let newJsonNotes = JSON.stringify(todolist, null, 2)
+            let newJsonNotes = JSON.stringify(todolist, null, 2)
 
         fs.writeFile('./public/json/todo.json', newJsonNotes, (err) => {
             if(err) throw err;
-            res.render('add')
+            
         }) 
         res.redirect('/')
         
@@ -98,6 +98,69 @@ app.post('/add/notes', (req, res) => {
         res.render('add', {message: 'vänligen fyll i alla fällt'})
     }
 })
+
+
+// REMOVE NOTES IN URL
+app.get('/remove/notes/:removenote', (req, res) => {
+    let removenote = req.params.removenote
+    //let array = []
+    let array = todolist.filter(item => item.todo !== removenote)
+    console.log("arrayen", array)
+
+    let newJsonNotes = JSON.stringify(array, null, 2)
+
+        fs.writeFile('./public/json/todo.json', newJsonNotes, (err) => {
+            if(err) throw err; 
+            res.redirect('/')
+        })
+})
+
+// REMOVE IN CLIENT
+app.post('/delete/note', (req, res) => {
+    let removenote = req.body.removenote    
+
+    console.log('dslkjfödjfalskj',removenote)
+    //let array = []
+   
+        let array = todolist.filter(item => item.todo !== removenote)
+
+        let newJsonNotes = JSON.stringify(array, null, 2)
+
+        fs.writeFileSync('./public/json/todo.json', newJsonNotes, (err) => {
+            if(err) throw err; 
+        })
+
+        res.redirect('/')
+})
+
+
+// UPDTATE IN URL
+app.get('/update/notes/:updatenote/:note?', (req, res) => {
+    let updatenote = req.params.updatenote
+    let newnote = req.params.note
+  
+    let change = todolist.filter(item => item.todo === updatenote)
+
+    if(change) {
+       let objIndex = todolist.findIndex((obj => obj.todo === updatenote))
+
+       todolist[objIndex].note = newnote
+        
+        let newJsonNotes = JSON.stringify(todolist, null, 2)
+
+        fs.writeFileSync('./public/json/todo.json', newJsonNotes, (err) => {
+            if(err) throw err;  
+          
+        })
+        res.redirect('/')
+  
+
+    }
+})
+
+
+
+
 
 
 

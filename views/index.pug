@@ -18,6 +18,7 @@ block content
                 div(class="notefoot")
                     span= `Datum: ` 
                     span= `${item.date}`
+                   
     else    
         each item, index in list
             div(class="notewrap")
@@ -29,4 +30,7 @@ block content
                 div(class="notefoot")
                     span= `Datum: ` 
                     span= `${item.date}`
+                    form(action="/delete/note", method="post")
+                        input(type="hidden", value=item.todo, name="removenote")
+                        button(type="submit") Ta bort
 
