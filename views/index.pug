@@ -1,36 +1,22 @@
 extends layout.pug
 block content
-  h1 Dina anteckningar
-  include search.pug
-  a(href='/add/notes') klicka
-  ul(class="notes")
-    if notMatch
-        h2 #{prompt}
-    if searched
-        each item in searched
-            h2 du har sökt på #{item.todo}
-            div(class="notewrap")
-                div(class="notehead")
-                    h3= ` ${item.todo}`
-                    h3= `v. ${item.week} `
-                div(class="notebody")
-                    p= `${item.note}`
-                div(class="notefoot")
-                    span= `Datum: ` 
-                    span= `${item.date}`
-                   
-    else    
-        each item, index in list
-            div(class="notewrap")
-                div(class="notehead")
-                    h3= ` ${item.todo}`
-                    h3= `v. ${item.week} `
-                div(class="notebody")
-                    p= `${item.note}`
-                div(class="notefoot")
-                    span= `Datum: ` 
-                    span= `${item.date}`
-                    form(action="/delete/note", method="post")
-                        input(type="hidden", value=item.todo, name="removenote")
-                        button(type="submit") Ta bort
+    br
+    h1 Dina anteckningar
+    include search.pug
+    a(href="/add/notes", class="addButton")
+        i(class="fas fa-pencil-alt", id="addIcon") &nbsp Ny anteckning
+    br
+    ul(class="notes")
+        if notMatch
+            h2 #{prompt}
+        if searched
+            a(href="/" class="goBack")  
+                i(class="fas fa-arrow-left") 
+                    span Alla anteckningar
+            each item in searched
+                h2 du har sökt på #{item.todo.charAt(0).toUpperCase() + item.todo.slice(1)}
+                include note.pug
 
+        else    
+            each item, index in list
+                include note.pug

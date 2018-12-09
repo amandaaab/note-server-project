@@ -1,0 +1,12 @@
+div(class="notewrap")
+    div(class="notehead")
+        h3= ` ${item.todo.charAt(0).toUpperCase() + item.todo.slice(1)}`
+    div(class="notebody")
+        p= `${item.note}`
+    div(class="notefoot")
+        span= `Senast: ` 
+        span= `${item.date}`
+        form(action="/delete/note", method="post")
+            input(type="hidden", value=item.todo, name="removenote")
+            button(type="submit" class="remove") 
+                i(class="fas fa-trash-alt fa-1x" style="color: #d14747")

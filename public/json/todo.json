@@ -1,38 +1,17 @@
 [
   {
-    "todo": "tenta",
-    "date": "12/12/18",
-    "week": 50,
-    "note": "tentaaaamen"
+    "todo": "Exempel 1",
+    "date": "2018-12-13",
+    "note": "Detta är exempel 3"
   },
   {
-    "todo": "a",
-    "date": "b",
-    "week": "c",
-    "note": "d"
+    "todo": "Exempel 2",
+    "date": "2018-12-13",
+    "note": "Detta är exempel 2"
   },
   {
-    "todo": "aaa",
-    "date": "aaaa",
-    "week": "aaaa",
-    "note": "aaaaa"
-  },
-  {
-    "todo": "uu",
-    "date": "u",
-    "week": "uu",
-    "note": "vet inte vad det ska stå"
-  },
-  {
-    "todo": "amanda",
-    "date": "bengtsson",
-    "week": "34",
-    "note": "sfjdsdjldflkds"
-  },
-  {
-    "todo": "mmmm",
-    "date": "mmmmm",
-    "week": "mmm",
-    "note": "mmmm"
+    "todo": "Exempel 3",
+    "date": "2018-12-13",
+    "note": "Detta är exempel 3"
   }
 ]

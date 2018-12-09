@@ -4,6 +4,7 @@ const port = 3000
 const bodyParser = require('body-parser')
 const fs = require('fs')
 const pug = require('pug')
+const path = require('path')
 
 // Sätter om inställningarna av view engine, till att använda pug.
 app.set('view engine', 'pug')
@@ -42,7 +43,7 @@ app.get('/:search', (req, res) => {
 app.post('/', (req, res) => {
     let search = req.body.todoItem;
     let searchedObj = [];
-
+  // Filterar ut varje objekt ur json, matchar något av objekten med vad som skrivs in i formuläret. 
     todolist.filter(item => {
         if(item.todo === search){
             searchedObj.push(item)
@@ -55,14 +56,14 @@ app.post('/', (req, res) => {
 
 
 // ADD NEW NOTES URL
-app.get('/add/notes/:todo/:date/:week/:note?', (req, res) => {
+app.get('/add/notes/:todo/:date/:note?', (req, res) => {
     let todo = req.params.todo
     let date = req.params.date
-    let week = req.params.week
     let note = req.params.note
 
+// Pushar in et nytt objekt till todolist 
     if(note) {
-        todolist.push({todo, date, week, note})
+        todolist.push({todo, date, note})
         let newJsonNotes = JSON.stringify(todolist, null, 2)
 
         fs.writeFile('./public/json/todo.json', newJsonNotes, (err) => {
@@ -72,7 +73,7 @@ app.get('/add/notes/:todo/:date/:week/:note?', (req, res) => {
     }
 })
 
-
+// ROUTE TO ADD-FORM
 app.get('/add/notes', (req, res) => {  
     res.render('add')
 })
@@ -81,11 +82,11 @@ app.get('/add/notes', (req, res) => {
 app.post('/add/notes', (req, res) => {
     let todo = req.body.newtodo
     let date = req.body.newdate
-    let week = req.body.newweek
     let note = req.body.newnote
 
+// Pushar in et nytt objekt till todolist 
     if(note) {
-        todolist.push({todo, date, week, note})
+        todolist.push({todo, date, note})
             let newJsonNotes = JSON.stringify(todolist, null, 2)
 
         fs.writeFile('./public/json/todo.json', newJsonNotes, (err) => {
@@ -95,7 +96,7 @@ app.post('/add/notes', (req, res) => {
         res.redirect('/')
         
     } else {  
-        res.render('add', {message: 'vänligen fyll i alla fällt'})
+        res.render('add', {message: 'Vänligen fyll i alla fällt'})
     }
 })
 
@@ -103,34 +104,36 @@ app.post('/add/notes', (req, res) => {
 // REMOVE NOTES IN URL
 app.get('/remove/notes/:removenote', (req, res) => {
     let removenote = req.params.removenote
-    //let array = []
+   
+    // Filtrerar ut alla objekt i listan som inte matchar det som skrivs in i url:en och sparar i en ny array och skriver sedan om todolist
     let array = todolist.filter(item => item.todo !== removenote)
-    console.log("arrayen", array)
 
     let newJsonNotes = JSON.stringify(array, null, 2)
 
         fs.writeFile('./public/json/todo.json', newJsonNotes, (err) => {
             if(err) throw err; 
-            res.redirect('/')
+            
         })
+    
+        res.redirect('/')
 })
 
 // REMOVE IN CLIENT
 app.post('/delete/note', (req, res) => {
-    let removenote = req.body.removenote    
+    let removenote = req.body.removenote   
 
-    console.log('dslkjfödjfalskj',removenote)
-    //let array = []
-   
+        // Filtrerar ut alla objekt i listan som inte matchar det som skrivs in i url:en och sparar i en ny array och skriver sedan om todolist
         let array = todolist.filter(item => item.todo !== removenote)
-
         let newJsonNotes = JSON.stringify(array, null, 2)
 
         fs.writeFileSync('./public/json/todo.json', newJsonNotes, (err) => {
-            if(err) throw err; 
+            if(err) throw err;  
+            
         })
 
         res.redirect('/')
+        res.render('index', {list: array})
+      
 })
 
 
@@ -138,10 +141,14 @@ app.post('/delete/note', (req, res) => {
 app.get('/update/notes/:updatenote/:note?', (req, res) => {
     let updatenote = req.params.updatenote
     let newnote = req.params.note
-  
+
+    // Filtrar ut det objekt som har samma "todo" som det som skrivs in i url:en
+    
     let change = todolist.filter(item => item.todo === updatenote)
 
     if(change) {
+
+    // Uppdaterar objektet som har det index som filtreras ut och uppdaterar med newnote. 
        let objIndex = todolist.findIndex((obj => obj.todo === updatenote))
 
        todolist[objIndex].note = newnote
@@ -154,33 +161,8 @@ app.get('/update/notes/:updatenote/:note?', (req, res) => {
         })
         res.redirect('/')
   
-
     }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

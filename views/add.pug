@@ -1,12 +1,19 @@
 extends layout.pug
 block content
-    h2 lägg till en ny note
-    form(action='/add/notes', method="post")
-        input(type="text", name="newtodo", placeholder="rubrik")
-        input(type="text", name="newdate", placeholder="datum")
-        input(type="text", name="newweek", placeholder="vecka")
-        input(type="text", name="newnote", placeholder="ny antecklning")
-        button(type="submit") Lägg till
-    
-    if message
-        h2 #{message}
+    div(class="addWrap")
+        h2(style="color:black") lägg till en ny note
+        form(action='/add/notes', method="post", class="addForm")
+
+            label(for="newtodo") Namn på din anteckning
+            input(type="text", name="newtodo", class="addinput", placeholder="Ex. projekt")
+
+            label(for="newdate") Ska senast göras...
+            input(type="date", name="newdate", class="addinput")
+            br
+            label(for="newnote") Vad ska du göra ? 
+            textarea(name="newnote", class="addtextarea")
+            br
+            button(type="submit", class="addSubmit") Lägg till
+         
+        if message
+            h2 #{message}
